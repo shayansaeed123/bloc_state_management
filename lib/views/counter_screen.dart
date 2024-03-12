@@ -1,3 +1,4 @@
+import 'package:blocs/res/reusablebtn.dart';
 import 'package:flutter/material.dart';
 
 class Counter_Screen extends StatefulWidget {
@@ -23,7 +24,8 @@ class _Counter_ScreenState extends State<Counter_Screen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              
+              reusablebtn((){}, 'increment'),
+              reusablebtn(() {},'decrement')
             ],
           )
         ],
