@@ -3,16 +3,18 @@ part of 'switch_bloc.dart';
 class SwitchState extends Equatable {
 
   final bool isSwitch;
-  const SwitchState({this.isSwitch = false});
+  final double  progressValue;
+  const SwitchState({this.isSwitch = false, this.progressValue = 0.0});
 
-  SwitchState copyWith({bool? isSwitch}){
+  SwitchState copyWith({bool? isSwitch, double? progressValue}){
     return SwitchState(
-      isSwitch: isSwitch ?? this.isSwitch
+      isSwitch: isSwitch ?? this.isSwitch,
+      progressValue: progressValue ?? this.progressValue
     );
   }
   
   @override
-  List<Object> get props => [isSwitch];
+  List<Object> get props => [isSwitch,progressValue];
 }
 
 
