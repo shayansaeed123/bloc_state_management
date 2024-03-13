@@ -1,5 +1,8 @@
+import 'package:blocs/bloc/counterBloc/counter_bloc.dart';
+import 'package:blocs/bloc/randomNumberBloc/bloc/random_number_bloc.dart';
 import 'package:blocs/views/counter_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +14,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return BlocProvider(
+      create: (context) => RandomNumberBloc(),
+      child: MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: Counter_Screen(),
+    ),
     );
   }
 }

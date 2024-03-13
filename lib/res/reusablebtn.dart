@@ -15,5 +15,5 @@ Widget reusablebtn(Function ontap,String name){
               ),
             ),
           ),
-    onPressed: (){ontap();}, child: Text(name));
+    onPressed: (){ontap();}, child: Text(name,style: TextStyle(color: Colors.white),));
 }
