@@ -38,6 +38,7 @@ dependencies:
   bloc:
   flutter_bloc: ^8.1.4
   equatable: 
+  image_picker: 
 
 dev_dependencies:
   flutter_test:
