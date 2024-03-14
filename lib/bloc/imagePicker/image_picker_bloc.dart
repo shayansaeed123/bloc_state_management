@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:blocs/bloc/imagePicker/image_picker_event.dart';
 import 'package:blocs/bloc/imagePicker/image_picker_state.dart';
@@ -24,5 +23,6 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState>{
     XFile? file = await imagePicker.pickImageCamera();
     emit(state.copyWith(file: file));
   }
+
 
 }

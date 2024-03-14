@@ -6,6 +6,7 @@ import 'package:blocs/utils/imagepicker.dart';
 import 'package:blocs/views/counter_screen.dart';
 import 'package:blocs/views/image_picker.dart';
 import 'package:blocs/views/switch_and_slide.dart';
+import 'package:blocs/views/user_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,15 +25,17 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CounterBloc(),),
         BlocProvider(create: (context) => RandomNumberBloc(),),
         BlocProvider(create: (context) => SwitchBloc(),),
-        BlocProvider(create: (context) => ImagePickerBloc(ImagePickerUtils()),)
+        BlocProvider(create: (context) => ImagePickerBloc(ImagePickerUtils()),),
+        BlocProvider(create: (context) => SwitchBloc(),),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const ImagePickerScreen(),
+        home: const UserDetailsScreen(),
       ),
     );
   }
