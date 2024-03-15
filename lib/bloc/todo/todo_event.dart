@@ -14,7 +14,7 @@ class AddTodoEvent extends  TodoEvent {
   final String task;
   const AddTodoEvent({required this.task});
 
-  List<Object?> get props => [];
+  List<Object?> get props => [task];
 }
 
 class RomoveTodoEvent extends TodoEvent{}

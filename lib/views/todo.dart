@@ -20,24 +20,24 @@ class _TodoScreenState extends State<TodoScreen> {
         centerTitle:  true,
       ),
       body: Column(children: [
-        BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
-          if (state.todos.isEmpty) {
-            return Center(child: CircularProgressIndicator());
-          }else if(state.todos.isNotEmpty){
-            return ListView.builder(
-              itemCount: state.todos.length,
-              itemBuilder: (context, index) {     
-                return ListTile(
-                  title: Text(state.todos[index]),
-                );
-            },);
-          }else{
-            return Container();
-          }
-        },)
+        Expanded(
+          child: BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
+            if (state.todos.isEmpty) {
+              return Center(child: CircularProgressIndicator());
+            }else{
+              return ListView.builder(
+                itemCount: state.todos.length,
+                itemBuilder: (context, index) {     
+                  return ListTile(
+                    title: Text(state.todos[index]),
+                  );
+              },);
+            }
+          },),
+        )
       ],),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
+        onPressed: () {
            for(int i = 0; i <= 10; i++){
             context.read<TodoBloc>().add(AddTodoEvent(task: i.toString()));
            }

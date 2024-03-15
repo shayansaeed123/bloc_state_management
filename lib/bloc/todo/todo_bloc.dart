@@ -4,7 +4,7 @@ import 'package:blocs/bloc/todo/todo_event.dart';
 import 'package:blocs/bloc/todo/todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState>{
-  List todos = [];
+  List<String> todos = [];
   TodoBloc() : super(TodoState()){
     on<AddTodoEvent>(_addTodo);
   }
