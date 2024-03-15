@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class UserDetailsScreen extends StatefulWidget {
   const UserDetailsScreen({super.key});
@@ -20,6 +21,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   File? _imageupdateprofileimage;
   bool updateprofileimage = false;
   String base64updateprofileimage = 'noimage';
+  String? image;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,50 +45,29 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
               color: Colors.orange,
               child: GestureDetector(
                 onTap: () {
+                  reuablebottomsheet(context, "Choose Profile Image", (){
+                    Navigator.pop(context);
+                      selectupdateprofileimage(ImageSource.gallery);
+                    }, (){
+                      Navigator.pop(context);
+                      selectupdateprofileimage(ImageSource.camera);
+                    });
                 },
                 child: Stack(
                   children: [
-                    // reusableimgornot(context, 130),
+                    Center(child: reusableimgornot(context, 
+             MediaQuery.of(context).size.height * 0.2,)),
                     Positioned(
-                      bottom: 15,
+                      bottom: 65,
                       right: 115,
-                      child: reusableassetimg(context, "man.png", 0.4,
-                          0.3, BoxFit.contain),
+                      child: reusableassetimg(context, "editprofile.png", 0.07,
+                          0.040, BoxFit.contain),
                     ),
                   ],
                 ),
               ),
-              // child: Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Center(
-              //   child: InkWell(
-              //     onTap: (){
-              //       reuablebottomsheet(context, "Choose Profile Image", (){
-              //         selectupdateprofileimage(ImageSource.gallery);
-              //       }, (){
-              //         selectupdateprofileimage(ImageSource.camera);
-              //       });
-              //     },
-              //     child: Container(
-              //       // margin: EdgeInsets.symmetric(
-              //       //     horizontal: MediaQuery.of(context).size.width * 0.07,
-              //       //     vertical: MediaQuery.of(context).size.height * 0.07),
-              //       width: MediaQuery.of(context).size.width * .7,
-              //       height: MediaQuery.of(context).size.height * .2,
-              //       decoration: BoxDecoration(
-              //         shape: BoxShape.circle,
-              //         border: Border.all(color: Colors.white, width: 6),
-              //         color: Colors.orange,
-              //       ),
-              //       // child: Image.file(File(_imageupdateprofileimage!.path.toString()),),
-              //     ),
-              //   ),
-              // ),
-              // ],)
             ),
           ),
-          //  SizedBox(height: MediaQuery.of(context).size.height * 0.0001),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.55,
             width: double.infinity,
@@ -188,11 +169,11 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           base64updateprofileimage = base64Encode(imageBytes);
 
           print('Base64 Image: $base64updateprofileimage');
-          // updateprofileimage = true;
+          updateprofileimage = true;
 
-          // if (updateprofileimage) {
-          //   showUpdateProfileImageDialog();
-          // }
+          if (updateprofileimage) {
+            showUpdateProfileImageDialog();
+        }
         } else {
           print('No image selected.');
         }
@@ -200,6 +181,95 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
     } catch (e) {
       print('Error in selectupdateprofileimage: $e');
       // Handle error here
+    } finally {
+      // setState(() {
+      //   isLoading = false;
+      // });
+    }
+  }
+  void showUpdateProfileImageDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Profile Image Updated'),
+        content: Container(
+          width: MediaQuery.of(context).size.width * 0.3,
+          height: MediaQuery.of(context).size.height * 0.3,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: FileImage(_imageupdateprofileimage!),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(5),
+            child: ElevatedButton(child: Text('Cancel'),onPressed: (){
+              Navigator.pop(context);
+            },)
+            // reusablebtn(context, () {
+            //   Navigator.pop(context);
+            // }, 'Cancel', 0.3),
+          ),
+          Padding(
+            padding: EdgeInsets.all(5),
+            child: ElevatedButton(child: Text('Submit'),onPressed: (){
+              setState(() {
+                updateProfileImage();
+              });
+              Navigator.pop(context);
+            },)
+            // reusablebtn(context, () {
+              // setState(() {
+              //   updateProfileImage();
+              // });
+            //   // Navigator.pop(context);
+            //   Navigator.pop(context);
+            // }, 'Submit', 0.3),
+          ),
+        ],
+      ),
+    );
+  }
+  Future<void> updateProfileImage() async {
+    // setState(() {
+    //   isLoading = true;
+    // });
+
+    final apiUrl =
+        "https://eleprogram.turk.pk/api/profile_update.php";
+    try {
+      final response = await http.post(Uri.parse(apiUrl), body: {
+        'image': base64updateprofileimage,
+      });
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+
+        if (data['success'] == 1) {
+          print(data['image']);
+          image = data['image']; 
+          print("object");
+
+          print("Image Updated Sucessfully");
+          setState(() {
+            
+          });
+          setState(() {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => UserDetailsScreen()));
+          });
+        } else {
+          print("Image not Updated Sucessfully");
+        }
+      } else {
+        print("Image not Updated Sucessfully");
+
+        print('Error: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
     } finally {
       // setState(() {
       //   isLoading = false;
@@ -214,5 +284,52 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
     width: MediaQuery.of(context).size.width * width,
     height: MediaQuery.of(context).size.height * height,
   );
+}
+
+Container reusableimgornot(
+  BuildContext context,
+  double radius,
+) {
+  return Container(
+      margin: EdgeInsets.only(top: 10, bottom: 10),
+      child: image == null ||
+              image == ""
+          ? Container(
+              padding: EdgeInsets.all(5),
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width * 0.5,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.orange,
+                  width: 2.0,
+                ),
+              ),
+              child: CircleAvatar(
+                radius: radius,
+                // backgroundColor: colorController.bgtealColorlow,
+                backgroundImage: AssetImage("assets/no.jpeg"),
+              ))
+          : Container(
+              padding: EdgeInsets.all(5),
+              // width: MediaQuery.ofrf(context).size.height*0.3,
+              
+              height: radius,
+              width: radius,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                // border: Border.all(
+                //   color: colorController
+                //       .bgtealColorlow,
+                //   width: 2.0,
+                // ),
+              ),
+              child: CircleAvatar(
+                  radius: radius,
+                  // backgroundColor: colorController.bgtealColorlow,
+                  backgroundImage: NetworkImage(
+                      "${image!}"))));
 }
 }
