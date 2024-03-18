@@ -17,4 +17,10 @@ class AddTodoEvent extends  TodoEvent {
   List<Object?> get props => [task];
 }
 
-class RomoveTodoEvent extends TodoEvent{}
+class RemoveTodoEvent extends TodoEvent{
+
+  final String task;
+  const RemoveTodoEvent({required this.task});
+
+  List<Object?> get prpos => [task];
+}

@@ -40,6 +40,8 @@ dependencies:
   equatable: 
   image_picker: 
   http: 
+  device_preview: ^1.1.0
+  shared_preferences: 
 
 dev_dependencies:
   flutter_test:
