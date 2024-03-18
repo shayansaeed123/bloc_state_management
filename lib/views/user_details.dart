@@ -153,9 +153,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   }
 
   Future<void> selectupdateprofileimage(ImageSource source) async {
-    // setState(() {
-    //   isLoading = true;
-    // });
     try {
       final picker = ImagePicker();
       final pickedFile = await picker.pickImage(source: source);
