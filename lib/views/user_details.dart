@@ -100,7 +100,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                         'Notification List', () {}, Icon(Icons.arrow_forward)),
                     reusabletile('About', () {}, Icon(Icons.arrow_forward)),
                     reusabletile('Contact', () {}, Icon(Icons.arrow_forward)),
-                    // SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
