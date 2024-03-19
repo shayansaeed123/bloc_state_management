@@ -8,6 +8,7 @@ abstract class SwitchEvent extends Equatable {
 }
 
 final class SwitchEnableAndDisable extends SwitchEvent {}
+// ignore: must_be_immutable
 final class SliderChangeValue extends SwitchEvent {
   double  value;
    SliderChangeValue({required this.value});
