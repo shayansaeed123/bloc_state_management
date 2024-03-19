@@ -17,7 +17,6 @@ class SwitchAndSlide extends StatefulWidget {
 
 class _SwitchAndSlideState extends State<SwitchAndSlide> {
   late Timer _timer;
-  //  late TimeOfDay selectedTime = TimeOfDay.now() ;
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
 
