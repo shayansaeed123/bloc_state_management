@@ -1,5 +1,7 @@
 
- import 'package:blocs/models/post_model.dart';
+ import 'package:bloc/bloc.dart';
+import 'package:blocs/models/post_model.dart';
+import 'package:blocs/res/post_repository.dart';
 import 'package:equatable/equatable.dart';
 ///Events
 abstract class PostEvent extends Equatable{
@@ -34,3 +36,18 @@ class PostState extends Equatable {
 
 ////Bloc
 
+class PostBloc extends Bloc<PostEvent, PostState>{
+
+  PostRepository  postRepo = PostRepository();
+  PostBloc () : super(PostState()){
+    on<PostsFetch>(_postApiFetch);
+  }
+
+  void _postApiFetch(PostEvent event , Emitter<PostState> emit)async{
+    await postRepo.fetchposts().then((value) {
+      emit(state.copyWith(posts: value,errorMessage: 'Success'));
+    }).onError((error, stackTrace) {
+      emit(state.copyWith(errorMessage: error.toString()));
+    });
+  }
+}

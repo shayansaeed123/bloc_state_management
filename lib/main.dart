@@ -1,3 +1,4 @@
+import 'package:blocs/bloc/api/api_bloc.dart';
 import 'package:blocs/bloc/counterBloc/counter_bloc.dart';
 import 'package:blocs/bloc/dateandtime/dateandtime_bloc.dart';
 import 'package:blocs/bloc/imagePicker/image_picker_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:blocs/bloc/todo/todo_bloc.dart';
 import 'package:blocs/utils/imagepicker.dart';
 import 'package:blocs/views/counter_screen.dart';
 import 'package:blocs/views/image_picker.dart';
+import 'package:blocs/views/post_screen.dart';
 import 'package:blocs/views/switch_and_slide.dart';
 import 'package:blocs/views/todo.dart';
 import 'package:blocs/views/user_details.dart';
@@ -37,6 +39,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ImagePickerBloc(ImagePickerUtils()),),
         BlocProvider(create: (context) => TodoBloc(),),
         BlocProvider(create: (context) => DateAndTimeBloc(),),
+        BlocProvider(create: (context) => PostBloc(),),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -45,7 +48,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const SwitchAndSlide(),
+        home: const PostScreen(),
       ),
     );
   }
