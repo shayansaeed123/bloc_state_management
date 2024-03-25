@@ -25,26 +25,5 @@ class GetApiRepository{
     } catch (e) {
       throw Exception('Failed to fetch data: $e');
     }
-    // try {
-    //   if (response.statusCode == 200) {
-    //     Map<String, dynamic> data = json.decode(response.body);
-
-    //     print('Response: ' + response.body);
-        // setState(() {
-        //   attendanceList = data['AttendanceListing'];
-        //   att_data = data['AttendanceListing'][0];
-        //   get_att_res = response;
-        //   present = data['Present'].toString();
-        //   absent = data['Absent'].toString();
-        //   working = data['Working '].toString();
-        //   newworkingday = data['Working '];
-        //   statusfunctiontype = data['capture_image'].toString();
-        //   login_status = data['login_status'].toString();
-        //   version_code = data['version_code'].toString();
-          
-        //   setState(() {});
-        //   setState(() {});
-          
-        // });
   }
 }
