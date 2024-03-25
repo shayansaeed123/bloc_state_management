@@ -46,21 +46,5 @@ class GetApiRepository{
         //   setState(() {});
           
         // });
-        
-      // } else {
-        // reusableattendancedialog(
-        //   context,
-        //   "Error",
-        //   'OK',
-        //   () {
-        //     Navigator.pop(context);
-        //     Navigator.push(context,
-        //         MaterialPageRoute(builder: ((context) => attendance())));
-        //   },
-        // );
-    //   }
-    // } catch (e) {
-    //   print('Failed to save button statesss: $e');
-    // } 
   }
 }
