@@ -43,6 +43,8 @@ dependencies:
   device_preview: ^1.1.0
   shared_preferences: 
   intl:
+  local_auth:
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:

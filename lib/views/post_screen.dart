@@ -26,6 +26,8 @@ class _PostScreenState extends State<PostScreen> {
           if(state.posts.isEmpty){
             return Center(child: CircularProgressIndicator());
           }else{
+
+            // return Text(state.posts[0].body.toString());
             return ListView.builder(
               itemCount: state.posts.length,
               itemBuilder: (context, index) {
