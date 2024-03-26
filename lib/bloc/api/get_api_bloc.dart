@@ -1,8 +1,11 @@
 
 
+import 'dart:convert';
+
 import 'package:blocs/res/get_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
 ///Event
 
@@ -91,13 +94,45 @@ class GetAPiBloc extends Bloc<GetApiEvent , GetApiState> {
   }
 
   void _onFetchData(FetchDataFromServer event , Emitter <GetApiState> emit)async{
-     emit(state.copyWith(isLoading: true, message: null));
-    try {
-      final data = await getData.getData();
-      emit(state.copyWith(isLoading: false, data: data));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, message: 'Failed to fetch data'));
+     try {
+    var user_id = '195';
+    var login_code = '1';
+    var params = {'user_id': user_id, 'login_code': login_code};
+
+    ///Api
+    String apiUrl = 'https://digitance.turk.pk/super_api/get_attenance_hr.php';
+    final response = await http.post(Uri.parse(apiUrl), body: params);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+
+      print('Response data: $data');
+
+      emit(state.copyWith(
+        isLoading: false,
+        data: data,
+        present: data['Present'].toString(),
+        absent: data['Absent'].toString(),
+        working: data['Working '].toString(),
+        newworkingday: data['Working '].toString(),
+        statusfunctiontype: data['capture_image'].toString(),
+        login_status: data['login_status'].toString(),
+        version_code: data['version_code'].toString(),
+      ));
+      print(data);
+    } else {
+      emit(state.copyWith(
+        isLoading: false,
+        message: 'Failed to fetch data. Status code: ${response.statusCode}',
+      ));
     }
+  } catch (e) {
+    print('Failed to fetch data: $e');
+    emit(state.copyWith(
+      isLoading: false,
+      message: 'Failed to fetch data: $e',
+    ));
+  }
   }
 
 }

@@ -23,25 +23,27 @@ class _GetApiScreenState extends State<GetApiScreen> {
           return Text(state.message!);
         } else {
           Map<String, dynamic>? data = state.data as Map<String, dynamic>?;
-          if (data != null && data.isNotEmpty) {
+          if (data != null) {
             // Display your data here
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Attendance Listing:'),
-                for (var entry in data.entries)
-                  Text('${entry.key} : ${entry.value}'),
-                Text('Present: ${state.present}'),
-                Text('Absent: ${state.absent}'),
-                Text('Working: ${state.working}'),
-                Text('New Working Day: ${state.newworkingday}'),
-                Text('Capture Status: ${state.statusfunctiontype}'),
-                Text('Login Status: ${state.login_status}'),
-                Text('Version Code: ${state.version_code}'),
-              ],
+            return Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Attendance Listing:'),
+                  for (var entry in data.entries)
+                    Text('${entry.key} : ${entry.value}'),
+                  Text('Present: ${state.present}'),
+                  Text('Absent: ${state.absent}'),
+                  Text('Working: ${state.working}'),
+                  Text('New Working Day: ${state.newworkingday}'),
+                  Text('Capture Status: ${state.statusfunctiontype}'),
+                  Text('Login Status: ${state.login_status}'),
+                  Text('Version Code: ${state.version_code}'),
+                ],
+              ),
             );
           } else {
-            return Text('No data available');
+            return Center(child: Text('No data available'));
           }
         }
       },),
