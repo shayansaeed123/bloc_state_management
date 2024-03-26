@@ -1,8 +1,6 @@
 
 
 import 'dart:convert';
-
-import 'package:blocs/models/post_model.dart';
 import 'package:http/http.dart' as http;
 
 class GetApiRepository{
