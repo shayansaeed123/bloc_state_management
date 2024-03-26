@@ -7,13 +7,7 @@ import 'package:blocs/bloc/randomNumberBloc/bloc/random_number_bloc.dart';
 import 'package:blocs/bloc/switchBloc/bloc/switch_bloc.dart';
 import 'package:blocs/bloc/todo/todo_bloc.dart';
 import 'package:blocs/utils/imagepicker.dart';
-import 'package:blocs/views/counter_screen.dart';
 import 'package:blocs/views/get_api_screen.dart';
-import 'package:blocs/views/image_picker.dart';
-import 'package:blocs/views/post_screen.dart';
-import 'package:blocs/views/switch_and_slide.dart';
-import 'package:blocs/views/todo.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
